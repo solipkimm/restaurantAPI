@@ -38,3 +38,57 @@ db.initialize().then(()=>{
 }).catch((err)=>{
     console.log(err);
 });
+
+// POST /api/restaurants
+app.post("/api/restaurants", (req, res) => {
+    db.addNewRestaurant(req.body)
+        .then((msg) => {
+            res.status(201).json({ "message" : msg });
+        }).catch((err) => {
+            res.json({ "message" : err });
+        });
+});
+
+// GET /api/restaurants
+app.get("/api/restaurants", (req, res) => {
+    db.getAllRestaurants(req.query.page, req.query.perPage, req.query.borough)
+        .then((restaurants) => {
+            res.json(restaurants);
+        }).catch((err) => {
+            res.status(404).json({ "message" : err });
+        });
+});
+
+// GET /api/restaurants/:id
+app.get("/api/restaurants/:id", (req, res) => {
+    db.getRestaurantById(req.params.id)
+        .then((restaurant) => {
+            res.json(restaurant);
+        }).catch((err) => {
+            res.status(404).json({ "message" : err });
+        });
+});
+
+// PUT /api/restaurants/:id
+app.put("/api/restaurants/:id", (req, res) => {
+    db.getRestaurantById(req.params.id)
+        .then((restaurant) => {
+            db.updateRestaurantById(req.body, req.params,id)
+                .then((msg) => {
+                    res.json({ "message" : msg });
+                });
+        }).catch((err) => {
+            res.status(404).json({ "message" : err });
+        });
+});
+
+// DELETE /api/restaurants.:id
+app.delete("/api/restaurants.:id", (req, res) => {
+    db.deleteRestaurantById(req.params.id)
+        .then((msg) => {
+            res.status(204).end();
+        }).catch((err) => {
+            res.status(404).json({ "message" : err })
+        })
+
+})
