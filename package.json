@@ -1,0 +1,20 @@
+{
+  "name": "restaurantapi",
+  "version": "1.0.0",
+  "description": "web422 assignment",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/solipkimm/restaurantAPI.git"
+  },
+  "author": "Solip Kim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/solipkimm/restaurantAPI/issues"
+  },
+  "homepage": "https://github.com/solipkimm/restaurantAPI#readme"
+}
