@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/solipkimm/restaurantAPI/issues"
   },
-  "homepage": "https://github.com/solipkimm/restaurantAPI#readme"
+  "homepage": "https://github.com/solipkimm/restaurantAPI#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
