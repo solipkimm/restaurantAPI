@@ -22,3 +22,5 @@ const db = new RestaurantDB("mongodb+srv://solip:solip@cluster0.jswyw.mongodb.ne
 
 // Add support for incoming JSON entities
 app.use(bodyParser.json());
+// Add support for CORS
+app.use(cors());
