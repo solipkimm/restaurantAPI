@@ -19,3 +19,6 @@ const HTTP_PORT = process.env.PORT || 8080;
 // database
 const RestaurantDB = require("./modules/restaurantDB.js");
 const db = new RestaurantDB("mongodb+srv://solip:solip@cluster0.jswyw.mongodb.net/sample_restaurants?retryWrites=true&w=majority");
+
+// Add support for incoming JSON entities
+app.use(bodyParser.json());
