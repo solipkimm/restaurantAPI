@@ -29,3 +29,12 @@ app.use(cors());
 app.get("/", (req, res) => {
     res.json({ "message" : "API Listening"});
 });
+
+// Connection
+db.initialize().then(()=>{
+    app.listen(HTTP_PORT, ()=>{
+        console.log(`server listening on: ${HTTP_PORT}`);
+    });
+}).catch((err)=>{
+    console.log(err);
+});
