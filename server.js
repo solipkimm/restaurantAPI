@@ -24,3 +24,8 @@ const db = new RestaurantDB("mongodb+srv://solip:solip@cluster0.jswyw.mongodb.ne
 app.use(bodyParser.json());
 // Add support for CORS
 app.use(cors());
+
+// home
+app.get("/", (req, res) => {
+    res.json({ "message" : "API Listening"});
+});
