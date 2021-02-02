@@ -14,3 +14,13 @@ function avg(grades){
   }
   return (total/grades.length).toFixed(2);
 }
+
+const tableRows = _.template(
+  `<% _.forEach(restaurants, function(restaurant) { %>
+    <tr data-id=<%- restaurant._id %>>
+      <td><%- restaurant.name %></td>
+      <td><%- restaurant.cuisine %></td>
+      <td><%- restaurant.address.building %> <%- restaurant.address.street %></td>
+      <td><%- avg(restaurant.grades) %></td>
+    </tr>
+  <% }); %>`);
