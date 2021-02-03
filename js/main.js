@@ -52,7 +52,6 @@ $(function(){
 
         $(".modal-title").html(currentRestaurant.name);
         $("#restaurant-address").html(currentRestaurant.address.building + " " + currentRestaurant.address.street);
-        //$("#restaurant-modal").modal('show');
         $("#restaurant-modal").modal({
           backdrop: 'static', // disable clicking on the backdrop to close
           keyboard: false // disable using the keyboard to close
@@ -78,19 +77,19 @@ $(function(){
   // shown.bs.modal event for the "Restaurant" modal window
   $('#restaurant-modal').on('shown.bs.modal', function () {
     map = new L.Map('leaflet', {
-      center: [currentRestaurant.coord[1], currentRestaurant.coord[0]],
+      center: [currentRestaurant.address.coord[1], currentRestaurant.address.coord[0]],
       zoom: 18,
       layers: [
           new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
       ]
     });
   
-    L.marker([currentRestaurant.coord[1], currentRestaurant.coord[0]]).addTo(map);
+    L.marker([currentRestaurant.address.coord[1], currentRestaurant.address.coord[0]]).addTo(map);
   });
 
   // hidden.bs.modal event for the "Restaurant" modal window
   $('#restaurant-modal').on('hidden.bs.modal', function () {
-    map = null;
+    map.remove();
   });
 
 })
