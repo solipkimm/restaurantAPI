@@ -44,9 +44,9 @@ app.post("/api/restaurants", (req, res) => {
   if (req.body){
     db.addNewRestaurant(req.body)
     .then((msg) => {
-      res.status(201).json({ "message" : msg });
+      res.status(201).json({ "message" : "Restaurant has been created" });
     }).catch((err) => {
-      res.json({ "message" : err });
+      res.status(400).json({ "message" : "Cannot create a restaurant" });
     });
   }
 });
@@ -58,14 +58,14 @@ app.get("/api/restaurants", (req, res) => {
     .then((restaurants) => {
       res.json(restaurants);
     }).catch((err) => {
-      res.status(404).json({ "message" : err });
+      res.status(404).json({ "message" : "Restaurant Not Found"});
     });
   } else {
     db.getAllRestaurants(req.query.page, req.query.perPage, req.query.borough)
     .then((restaurants) => {
       res.json(restaurants);
     }).catch((err) => {
-      res.status(404).json({ "message" : err });
+      res.status(404).json({ "message" : "Restaurant Not Found"});
     });
   }
 });
@@ -77,7 +77,7 @@ app.get("/api/restaurants/:id", (req, res) => {
     .then((restaurant) => {
       res.json(restaurant);
     }).catch((err) => {
-      res.status(404).json({ "message" : err });
+      res.status(404).json({ "message" : "Restaurant Not Found"});
     });
   }
 });
@@ -89,10 +89,10 @@ app.put("/api/restaurants/:id", (req, res) => {
     .then((restaurant) => {
       db.updateRestaurantById(req.body, req.params,id)
         .then((msg) => {
-          res.json({ "message" : msg });
+          res.status(200).json({ "message" : "Restaurant has been updated" });
         });
     }).catch((err) => {
-      res.status(404).json({ "message" : err });
+      res.status(404).json({ "message" : "Restaurant Not Found"});
     });
   }
 });
@@ -104,7 +104,7 @@ app.delete("/api/restaurants.:id", (req, res) => {
     .then((msg) => {
       res.status(204).end();
     }).catch((err) => {
-      res.status(404).json({ "message" : err })
+      res.status(500).json({ "message" : "Unable to Remove Restaurant" })
     })
   }
 })
