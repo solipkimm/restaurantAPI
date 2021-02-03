@@ -64,17 +64,15 @@ $(function(){
   // Click event for the "previous page" button
   $("#previous-page").on("click", function(){
     if (page > 1){
-      page -= 1;
+      page --;
       loadRestaurantData();
     }
   });
 
   // Click event for the "next page" button
   $("#next-page").on("click", function(){
-    if (page < restaurantData.length/perPage){
-      page += 1;
+      page ++;
       loadRestaurantData();
-    }
   });
 
   // shown.bs.modal event for the "Restaurant" modal window
