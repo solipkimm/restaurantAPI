@@ -9,10 +9,10 @@ function avg(grades){
 
   if (grades.length > 0){
     for (let i = 0; i < grades.length; i++){
-      total += element.grade;
+      total += grades[i].score;
     }
   }
-  return (total/grades.length).toFixed(2);
+  return (total/(grades.length)).toFixed(2);
 }
 
 const tableRows = _.template(
