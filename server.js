@@ -44,9 +44,11 @@ app.post("/api/restaurants", (req, res) => {
   if (req.body){
     db.addNewRestaurant(req.body)
     .then((msg) => {
-      res.status(201).json({ "message" : "Restaurant has been created" });
+      res.status(201).json({ "message" : `Restaurant ${req.body.name} has been created` });
     }).catch((err) => {
-      res.status(400).json({ "message" : "Cannot create a restaurant" });
+      res.status(400).json({ "status" : "400 - Invalid Request",
+                              "message" : "Cannot create a restaurant"
+                            });
     });
   }
 });
@@ -54,18 +56,23 @@ app.post("/api/restaurants", (req, res) => {
 // GET /api/restaurants
 app.get("/api/restaurants", (req, res) => {
   if (!req.query.page && !req.query.perPage){
+    // default
     db.getAllRestaurants(1, 10)
     .then((restaurants) => {
       res.json(restaurants);
     }).catch((err) => {
-      res.status(404).json({ "message" : "Restaurant Not Found"});
+      res.status(400).json({ "status" : "400 - Invalid Request",
+                              "message" : "Please use path /api/restaurants or api/restaurants?perPage=<perPage>&page=<page>"
+                            });
     });
   } else {
     db.getAllRestaurants(req.query.page, req.query.perPage, req.query.borough)
     .then((restaurants) => {
       res.json(restaurants);
     }).catch((err) => {
-      res.status(404).json({ "message" : "Restaurant Not Found"});
+      res.status(400).json({ "status" : "400 - Invalid Request",
+                              "message" : "Please use path /api/restaurants or api/restaurants?perPage=<perPage>&page=<page>"
+                            });
     });
   }
 });
@@ -77,7 +84,9 @@ app.get("/api/restaurants/:id", (req, res) => {
     .then((restaurant) => {
       res.json(restaurant);
     }).catch((err) => {
-      res.status(404).json({ "message" : "Restaurant Not Found"});
+      res.status(404).json({ "status" : "404 - Not Found",
+                              "message" : `Restaurant (id : ${req.params.id}) Not Found`
+                            });
     });
   }
 });
@@ -89,10 +98,12 @@ app.put("/api/restaurants/:id", (req, res) => {
     .then((restaurant) => {
       db.updateRestaurantById(req.body, req.params,id)
         .then((msg) => {
-          res.status(200).json({ "message" : "Restaurant has been updated" });
+          res.status(200).json({ "message" : `Restaurant ${req.body.name} has been updated` });
         });
     }).catch((err) => {
-      res.status(404).json({ "message" : "Restaurant Not Found"});
+      res.status(404).json({ "status" : "404 - Not Found",
+                              "message" : `Restaurant (id : ${req.params.id}) Not Found`
+                            });
     });
   }
 });
@@ -102,9 +113,11 @@ app.delete("/api/restaurants.:id", (req, res) => {
   if (req.params.id){
     db.deleteRestaurantById(req.params.id)
     .then((msg) => {
-      res.status(204).end();
+      res.status(204).json({ "message": `Restaurant (id : ${req.params.id}) has been deleted` }).end();
     }).catch((err) => {
-      res.status(500).json({ "message" : "Unable to Remove Restaurant" })
-    })
+      res.status(404).json({ "status" : "404 - Not Found",
+                              "message" : `Restaurant (id : ${req.params.id}) Not Found`
+                            });
+    });
   }
 })
