@@ -24,3 +24,15 @@ const tableRows = _.template(
       <td><%- avg(restaurant.grades) %></td>
     </tr>
   <% }); %>`);
+
+function loadRestaurantData() {
+  fetch("https://cryptic-lowlands-55609.herokuapp.com/api/restaurants?perPage=" + perPage + "&page=" + page)
+    .then(response => response.json())
+    .then(data => {
+      restaurantData = data;
+      let rows = tableRows({restaurants: data});
+      $("#restaurant-table tbody").html(rows);
+      $("#current-page").html(page);
+    })
+    .catch(err => console.error('Unable to load restaurants data:', err));    
+}
